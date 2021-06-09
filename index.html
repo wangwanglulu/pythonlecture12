@@ -48,9 +48,13 @@ With relative_scaling=0, only word-ranks are considered. With
 relative_scaling=1, a word that is twice as frequent will have 
 twice the size. If you want to consider the word frequencies 
 and not only their rank, relative_scaling around .5 often looks good.'
-
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
 font = r'C:\Windows\Fonts\Arial.TTF'
-wc = WordCloud(font_path=font, #如果是中文必须要添加这个，否则会显示成框框
+wc = WordCloud(font_path=font, 
+               #如果是中文必须要添加这个，否则会显示成框框
                background_color='white',
                width=1000,
                height=800,
@@ -63,6 +67,9 @@ plt.show() #显示图片
                     </div>
                 </section>
                 <section>
+                    <div class="fragment"><img data-src="s1.png" style="height: 400pt"></div>
+                </section>
+                <section>
                     <ul>
                         <li>Loading text file</li>
                     </ul>
@@ -72,9 +79,12 @@ from matplotlib import pyplot as plt
 from wordcloud import WordCloud
  
 filename = 'Harry Potter.txt'
-with open(filename , encoding="utf-8") as f_obj:
+with open(filename, encoding="utf-8") as f_obj:
     contents = f_obj.read()
-
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
 font = r'C:\Windows\Fonts\Arial.TTF'
 wc = WordCloud(font_path=font, 
                background_color='white',
@@ -89,6 +99,9 @@ plt.show()
                     </div>
                 </section>
                 <section>
+                    <div class="fragment"><img data-src="s2.png" style="height: 400pt"></div>
+                </section>
+                <section>
                     <ul>
                         <li>Loading Chinese text file</li>
                     </ul>
@@ -97,13 +110,14 @@ plt.show()
 from matplotlib import pyplot as plt
 from wordcloud import WordCloud
 
-filename = 'sanguo.txt'
+filename = 'hongloumeng.txt'
 with open(filename , encoding="utf-8") as f_obj:
     contents = f_obj.read()
-
-
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
 font = r'C:\Windows\Fonts\simkai.ttf'
-
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -117,6 +131,9 @@ plt.show()
                     </div>
                 </section>
                 <section>
+                    <div class="fragment"><img data-src="s3.png" style="height: 400pt"></div>
+                </section>
+                <section>
                     <ul>
                         <li>Using jieba</li>
                     </ul>
@@ -128,7 +145,10 @@ import jieba
 filename = 'sanguo.txt'
 with open(filename , encoding="utf-8") as f_obj:
     contents = f_obj.read()
-
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
 s = jieba.lcut(contents) 
 txt = " ".join(s)
 print(txt)
@@ -146,8 +166,11 @@ plt.show()
                     </div>
                 </section>
                 <section>
+                    <div class="fragment"><img data-src="s4.png" style="height: 400pt"></div>
+                </section>
+                <section>
                     <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="ASCII1.png" style="height: 300pt"></div>
+                    <div class="fragment"><img data-src="ASCII1.png" style="height: 450pt"></div>
                 </section>
                 <section>
                     <ul>
@@ -165,7 +188,7 @@ img.save("x.png")
                         <pre><code class="line-numbers" data-trim contenteditable data-noescape>
 import qrcode
 
-img=qrcode.make("http://wangwanglulu.cn/teaching/")
+img=qrcode.make("http://wangwanglulu.com/teaching/")
 img.save("x.png")
 </code></pre>
                     </div>

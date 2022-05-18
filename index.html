@@ -3,828 +3,891 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lecture 12</title>
-    <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/white.css">
-    <link rel="stylesheet" href="css/theme/custom.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css" id="theme">
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="lib/css/github-gist.css">
-    <!-- Printing and PDF exports -->
-    <script>
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-    document.getElementsByTagName('head')[0].appendChild(link);
-    </script>
+    <link rel="stylesheet" href="plugin/highlight/github.css">
+    <link rel="stylesheet" href="plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="plugin/menu/font-awesome/css/all.css">
 </head>
 
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
             <section data-background-video="bgm.mp4" data-background-video-loop data-background-video-muted style="text-align: left;">
-                <h2 style="color: white">Python Programming</h2>
-                <h5 style="color: white">Lecture 12 Wordcloud, Web API</h5>
+                <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 12 Data Visualization</h3>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.1 Wordcloud & Encoding</h2>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="wordcloud_ex.png" style="height: 400pt"></div>
+                    <h2 style="color: white">12.1 Data Visualization </h2>
                 </section>
                 <section>
                     <ul>
-                        <li>A long string</li>
+                        <li class="fragment">
+                            <p><a href="https://matplotlib.org/">The matplotlib Gallery</a></p>
+                            <p>Plotting a Simple Line Graph</p>
+                        </li>
                     </ul>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-from matplotlib import pyplot as plt
-from wordcloud import WordCloud
- 
-string = 'Importance of relative word frequencies for font-size. 
-With relative_scaling=0, only word-ranks are considered. With 
-relative_scaling=1, a word that is twice as frequent will have 
-twice the size. If you want to consider the word frequencies 
-and not only their rank, relative_scaling around .5 often looks good.'
-</code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-font = r'C:\Windows\Fonts\Arial.TTF'
-wc = WordCloud(font_path=font, 
-               #如果是中文必须要添加这个，否则会显示成框框
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(string)
-wc.to_file('s1.png') #保存图片
-plt.imshow(wc)  #用plt显示图片
-plt.axis('off') #不显示坐标轴
-plt.show() #显示图片
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s1.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Loading text file</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-from matplotlib import pyplot as plt
-from wordcloud import WordCloud
- 
-filename = 'Harry Potter.txt'
-with open(filename, encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-</code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-font = r'C:\Windows\Fonts\Arial.TTF'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(contents)
-wc.to_file('s2.png') 
-plt.imshow(wc)  
-plt.axis('off') 
-plt.show() 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s2.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Loading Chinese text file</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-from matplotlib import pyplot as plt
-from wordcloud import WordCloud
-
-filename = 'hongloumeng.txt'
-with open(filename , encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-</code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-font = r'C:\Windows\Fonts\simkai.ttf'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(contents)
-wc.to_file('s3.png') 
-plt.imshow(wc)  
-plt.axis('off') 
-plt.show() 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s3.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Using jieba</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-from matplotlib import pyplot as plt
-from wordcloud import WordCloud
-import jieba
-filename = 'sanguo.txt'
-with open(filename , encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-</code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-s = jieba.lcut(contents) 
-txt = " ".join(s)
-print(txt)
-font = r'C:\Windows\Fonts\simkai.ttf'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(txt)
-wc.to_file('s4.png') 
-plt.imshow(wc)  
-plt.axis('off') 
-plt.show() 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s4.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="ASCII1.png" style="height: 450pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Two-dimensional code, QR code</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import qrcode
-
-img=qrcode.make("Hello!")
-img.save("x.png")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import qrcode
-
-img=qrcode.make("http://wangwanglulu.com/teaching/")
-img.save("x.png")
-</code></pre>
-                    </div>
-                    <div class="fragment"><img data-src="wl.png" style="height: 200pt"></div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.2 Web API</h2>
-                </section>
-                <section>
-                    <h6 class="fragment">Web API</h6>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-import requests
-
-url = "http://t.weather.itboy.net/api/weather/city/101020100"
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json()  
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-f = response_dict['data']
-ff = f['forecast']
-ff_today = ff[0]
-ff_1 = ff[1]
-ff_2 = ff[2]
-
-def show(day):
-    for x in day:
-        print(x+': '+str(day[x]))
-    print('\n')
-show(ff_today)
-show(ff_1)
-show(ff_2)
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <p><a href="http://www.tuling123.com/">Turing Robot</a></p>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import requests     
-    
-KEY = '' # 这里填拿到的key    
-    
-def get_response(msg):    
-    apiUrl = 'http://www.tuling123.com/openapi/api'    
-    data = {    
-        'key'    : KEY,    
-        'info'   : msg,    
-        'userid' : '路老师',    
-    }    
-    try:    
-        r = requests.post(apiUrl, data=data).json()    
-        return r.get('text')    
-    except:    
-        return None
-print(get_response('你好'))
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <p>GitHub</p>
-                    <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import requests
-
-# Make an API call and store the response.
-r = requests.get(url)
-print("Status code:", r.status_code)
-# Store API response in a variable.
-response_dict = r.json()
-
-print(response_dict.keys())
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable data-noescape>
-Status code: 200
-dict_keys(['total_count', 'incomplete_results', 'items'])
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Working with the Response Dictionary</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import requests
-url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
-# Make an API call and store the response.
-r = requests.get(url)
-print("Status code:", r.status_code)
-# Store API response in a variable.
-response_dict = r.json()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-print("Total repositories:", response_dict['total_count'])
-# Explore information about the repositories.
-repo_dicts = response_dict['items']
-print("Repositories returned:", len(repo_dicts))
-
-# Examine the first repository.
-repo_dict = repo_dicts[0]
-print("\nKeys:", len(repo_dict))
-for key in sorted(repo_dict.keys()):
-    print(key)
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-print("\nSelected information about first repository:")
-print('Name:', repo_dict['name'])
-print('Owner:', repo_dict['owner']['login'])
-print('Stars:', repo_dict['stargazers_count'])
-print('Repository:', repo_dict['html_url'])
-print('Created:', repo_dict['created_at'])
-print('Updated:', repo_dict['updated_at'])
-print('Description:', repo_dict['description'])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable data-noescape>
-Status code: 200
-Total repositories: 3675320
-Repositories returned: 30
-
-Selected information about first repository:
-Name: public-apis
-Owner: toddmotto
-Stars: 57212
-Repository: https://github.com/toddmotto/public-apis
-Created: 2016-03-20T23:49:42Z
-Updated: 2019-05-22T09:34:50Z
-Description: A collective list of free APIs for use in software and web development.
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Visualizing Repositories Using Plotly</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-import requests
-
-from plotly.graph_objs import Bar
-from plotly import offline
-
-URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
-r = requests.get(URL)
-print("Status code:", r.status_code)
-response_dict = r.json()
-print("Total repositories:", response_dict['total_count'])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-repo_dicts = response_dict['items']
-names, stars = [], []
-for repo_dict in repo_dicts:
-    names.append(repo_dict['name'])
-    stars.append(repo_dict['stargazers_count'])
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Make visualization</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-data = [{
-    'type': 'bar', 'x': names,'y': stars,
-    'marker': {'color': 'rgb(60, 100, 150)',
-               'line': {'width': 1.5, 'color': 'rgb(25, 25, 25)'}
-    },
-    'opacity': 0.6,
-}]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-my_layout = {
-    'title': 'Most-Starred Python Projects on GitHub',
-    'titlefont': {'size': 28},
-    'xaxis': {'title': 'Repository',
-              'titlefont': {'size': 24},
-              'tickfont': {'size': 14},
-    },
-    'yaxis': {'title': 'Stars',
-              'titlefont': {'size': 24},
-              'tickfont': {'size': 14},
-    },
-}
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable data-noescape>
-fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='python_repos.html')
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <h6>Where to find Web API?</h6>
-                    <p class="fragment"><a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, <a href="https://waditu.com/">Tushare</a></p>
-                    <h6 class="fragment">Stock Market (股票市场)</h6>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-url="http://img1.money.126.net/data/hs/kline/day/history/2020/1399001.json"
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">代码为股票代码，上海股票前加0，如600756变成0600756，深圳股票前加1</li>
-                        <li class="fragment">大盘指数数据查询：上证指数000001前加0，沪深300指数000300股票前加0，深证成指399001前加1，中小板指399005前加1，创业板指399006前加1</li>
-                        <li class="fragment">是否复权，不复权为kline，复权为klinederc</li>
-                    </ul>
-                    <p class="fragment">贵州茅台</p>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-url="http://img1.money.126.net/data/hs/kline/day/history/2020/0600519.json"
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-import requests
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
 
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json() 
-# print(response_dict)
+squares = [1, 4, 9, 16, 25]
+plt.plot(squares)
+# plt.show()
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt1.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Changing the Label Type and Graph Thickness</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+squares = [1, 4, 9, 16, 25]
+plt.plot(squares, linewidth=5)
+
+# Set chart title and label axes.
+plt.title("Square Numbers", fontsize=24)
+plt.xlabel("Value", fontsize=14)
+plt.ylabel("Square of Value", fontsize=14)
+
+# Set size of tick labels.
+plt.tick_params(axis='both', labelsize=14)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt2.jpg" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <p>Correcting the Plot</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+input_values = [1, 2, 3, 4, 5]
+squares = [1, 4, 9, 16, 25]
+plt.plot(input_values, squares, linewidth=5)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt2x.jpg
+                        " style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Plotting and Styling Individual Points with scatter()</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+plt.scatter(2, 4)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+plt.scatter(2, 4, s=200)
+
+# Set chart title and label axes.
+plt.title("Square Numbers", fontsize=24)
+plt.xlabel("Value", fontsize=14)
+plt.ylabel("Square of Value", fontsize=14)
+
+# Set size of tick labels.
+plt.tick_params(axis='both', which='major', labelsize=14)
+plt.show()
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-data = response_dict['data']
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
 
-for x in data[:5]:
-    print("""日期: {}，开盘价：{}，收盘价：{}，最高价：{}
-        最低价：{}，交易量：{}，涨幅跌幅：{}""".format(x[0],\
-        x[1], x[2], x[3], x[4], x[5], x[6]))
+x_values = [1, 2, 3, 4, 5]
+y_values = [1, 4, 9, 16, 25]
+plt.scatter(x_values, y_values, s=100)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt3.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+x_values = list(range(1, 1001))
+y_values = [x**2 for x in x_values]
+plt.scatter(x_values, y_values, s=40)
+
+# Set the range for each axis.
+plt.axis([0, 1100, 0, 1100000])
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt4.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+plt.scatter(x_values, y_values, edgecolor='none', s=40)
+plt.scatter(x_values, y_values, color='red', edgecolor='none', s=40)
+plt.scatter(x_values, y_values, color=(0, 0.8, 0), edgecolor='none', s=40) #RGB
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt5.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+x_values = list(range(1001))
+y_values = [x**2 for x in x_values]
+plt.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,
+edgecolor='none', s=40)
+
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt6.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Random Walks</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from random import choice
+class RandomWalk():
+    def __init__(self, num_points=5000):
+        self.num_points = num_points
+        self.x_values = [0]
+        self.y_values = [0]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#continue
+    def fill_walk(self):
+        while len(self.x_values) < self.num_points:
+            x_direction = choice([1, -1])
+            x_distance = choice([0, 1, 2, 3, 4])
+            x_step = x_direction * x_distance
+            y_direction = choice([1, -1])
+            y_distance = choice([0, 1, 2, 3, 4])
+            y_step = y_direction * y_distance
+
+            if x_step == 0 and y_step == 0:
+                continue
+
+            next_x = self.x_values[-1] + x_step
+            next_y = self.y_values[-1] + y_step
+            self.x_values.append(next_x)
+            self.y_values.append(next_y)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+rw = RandomWalk()
+rw.fill_walk()
+plt.scatter(rw.x_values, rw.y_values, s=1)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt7.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Generating Multiple Random Walks</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+while True:
+    rw = RandomWalk()
+    rw.fill_walk()
+    plt.scatter(rw.x_values, rw.y_values, s=1)
+    plt.show()
+
+    keep_running = input("Make another walk? (y/n): ")
+    if keep_running == 'n':
+        break
+</code></pre>
+                    </div>
+                    <p class="fragment">Styling the Walk</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+point_numbers = list(range(rw.num_points))
+plt.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+    edgecolor='none', s=15)
+plt.show()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+    rw = RandomWalk(50000)
+
+    plt.axes().get_xaxis().set_visible(False)
+    plt.axes().get_yaxis().set_visible(False)
+
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt8.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h3>Rolling Dice with Plotly</h3>
+                    <p class="fragment">In Anaconda Prompt</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install plotly
+</code></pre>
+                    </div>
+                    <p class="fragment">die.py</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from random import randint
+class Die():
+
+    def __init__(self, num_sides=6):
+        self.num_sides = num_sides
+    def roll(self):
+        return randint(1, self.num_sides)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+die = Die()
+results = []
+for roll_num in range(100):
+    result = die.roll()
+    results.append(result)
+print(results)
+
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-200
-日期: 20200102，开盘价：1128.0，收盘价：1130.0，最高价：1145.06
-        最低价：1116.0，交易量：14809916，涨幅跌幅：-4.48
-日期: 20200103，开盘价：1117.0，收盘价：1078.56，最高价：1117.0
-        最低价：1076.9，交易量：13031878，涨幅跌幅：-4.55
-日期: 20200106，开盘价：1070.86，收盘价：1077.99，最高价：1092.9
-        最低价：1067.3，交易量：6341478，涨幅跌幅：-0.05
-日期: 20200107，开盘价：1077.5，收盘价：1094.53，最高价：1099.0
-        最低价：1076.4，交易量：4785359，涨幅跌幅：1.53
-日期: 20200108，开盘价：1085.05，收盘价：1088.14，最高价：1095.5
-        最低价：1082.58，交易量：2500825，涨幅跌幅：-0.58
+[3, 4, 1, 3, 4, 3, 4, 6, 4, 4, 1, 3, 6, 5, 2, 6, 2, 5, 4, 3, 5, 4, 2, 4, 3, 1, 2, 6, 6,
+ 2, 3, 2, 1, 6, 6, 4, 3, 2, 3, 5, 2, 4, 3, 6, 3, 2, 1, 3, 2, 1, 4, 6, 6, 3, 3, 3, 2, 2,
+  6, 3, 1, 6, 3, 4, 2, 6, 4, 6, 6, 3, 5, 5, 5, 5, 5, 3, 3, 1, 3, 2, 4, 2, 3, 1, 1, 4, 4,
+   2, 4, 2, 5, 2, 6, 2, 5, 6, 2, 2, 6, 5]
 </code></pre>
                     </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-date=[]; open_p=[]; close_p=[]; high=[]
-low=[]; volume=[]; percent=[]
-for y in data:
-    date.append(y[0]); open_p.append(y[1])
-    close_p.append(y[2]); high.append(y[3])
-    low.append(y[4]); volume.append(y[5])
-    percent.append(y[6])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-plt.rcParams['font.sans-serif'] = ['SimHei'] 
-plt.style.use('ggplot')
-plt.plot(close_p, linewidth=0.5)
-plt.scatter(date,close_p, s=5)
-plt.xticks(date[::20],rotation=45,fontsize=6)
-plt.title('贵州茅台收盘价（2020）',fontsize=10)
-plt.tight_layout()
-plt.savefig('maotai2020.jpg',dpi=300)
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src='maotai2020.jpg' style="height: 450pt"></div>
                 </section>
                 <section>
                     <ul>
-                        <li>Batch Data Visualization</li>
+                        <li class="fragment">
+                            <p>Analyzing the Results</p>
+                        </li>
                     </ul>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-import os
-import requests
-import matplotlib.pyplot as plt
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for roll_num in range(1000):
+    result = die.roll()
+    results.append(result)
+
+frequencies = []
+for value in range(1, die.num_sides+1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
+print(frequencies)
+#[177, 187, 185, 187, 185, 179]
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-def stock_visual(url):
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
 
-    r = requests.get(url)
-    print(r.status_code)
-    response_dict = r.json() 
-    data = response_dict['data']
+# Visualize the results.
+x_values=list(range(1,die.num_sides+1))
+data=[Bar(x=x_values,y=frequencies)]
 
-    date=[];close_p=[]
-    for y in data:
-        date.append(y[0])
-        close_p.append(y[2])
-    return date,close_p
+x_axis_config={'title': 'result'}
+y_axis_config={'title': 'frequencies'}
+my_layout=Layout(title='Rolling one D6 1000 times',
+                xaxis=x_axis_config, yaxis=y_axis_config)
+offline.plot({'data':data,'layout':my_layout},filename='d6.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="d6.html">Rolling one D6 1000 times</a>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
+from die import Die
+# Create two D6 dice.
+die_1 = Die()
+die_2 = Die()
+# Make some rolls, and store results in a list.
+results = []
+for roll_num in range(1000):
+    result = die_1.roll() + die_2.roll()
+    results.append(result)
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-exist=os.path.exists('figures')  
-if not exist:
-    os.mkdir('figures')
-os.chdir('figures')
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Analyze the results.
+frequencies = []
+max_result = die_1.num_sides + die_2.num_sides
+
+for value in range(2, max_result+1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-stock_list = ["0600519","0600520","0600521"]
-for x in stock_list:
-    url = "http://img1.money.126.net/data/hs/kline/day/history/2020/{}.json".format(x)
-    x_date, x_close = stock_visual(url)
-    plt.style.use('ggplot')
-    plt.plot(x_close, linewidth=0.5)
-    plt.scatter(x_date,x_close, s=5)
-    plt.xticks(x_date[::20],rotation=45,fontsize=6)
-    plt.title(x+'(2020)',fontsize=10)
-    plt.tight_layout()
-    plt.savefig(x+'.jpg',dpi=300)
-    plt.close()
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Visualize the results.
+x_values=list(range(2,max_result+1))
+data=[Bar(x=x_values,y=frequencies)]
+
+x_axis_config={'title': 'result', 'dtick':1}
+y_axis_config={'title': 'frequencies'}
+my_layout=Layout(title='Rolling two D6 dice 1000 times',
+                xaxis=x_axis_config, yaxis=y_axis_config)
+offline.plot({'data':data,'layout':my_layout},filename='d6_d6.html')
 </code></pre>
                     </div>
-                    <div class="fragment"><img data-src='batch.png' style="height: 200pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>
-                            <p>Python Crash Couse (Chapters we do not cover: Chapter 12 - 14, 18 - 20)</p>
-                            <ul>
-                                <li>
-                                    <p>Chapter 12 -14: Alien Invasion</p>
-                                </li>
-                                <li>
-                                    <p>Chapter 18 - 20: Django</p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <p>Python for Everybody (Chapters we do not cover: Chapter 11 - 13, 15 - 16)</p>
-                            <ul>
-                                <li>
-                                    <p>Chapter 11: Regualer Expressions</p>
-                                </li>
-                                <li>
-                                    <p>Chapter 12: Networked Programs 12.4 - 12.8 (urlib, BeautifulSoup)</p>
-                                </li>
-                                <li>
-                                    <p>Chapter 13: Using Web Services (XML, JSON, API)</p>
-                                </li>
-                                <li>
-                                    <p>Chapter 15: Databases and SQL</p>
-                                </li>
-                                <li>
-                                    <p>Chapter 16: Visualizing data (Network, Word Cloud)</p>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <a class="fragment" href="d6_d6.html">Rolling two D6 dice 1000 times</a>
                 </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.3 Example: Crowdfunding</h2>
+                    <h2 style="color: white">12.2 Downloading Data (1)</h2>
                 </section>
                 <section>
-                    <h3>Data of Crowdfunding Projects</h3>
-                    <a href="https://www.kaggle.com/kemical/kickstarter-projects">Kickstarter Projects</a> from Kaggle.com
-                    <div><img data-src="ks.jpg" style="height: 200pt"></div>
-                    More than 300,000 kickstarter projects.
-                </section>
-                <section>
-                    <ul>
-                        <li>Loading Data</li>
-                    </ul>
+                    <p><b>.CSV</b></p>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import csv
 
-filename = 'ks-projects-201801.csv' 
+filename = 'sitka_weather_07-2018_simple.csv' 
 with open(filename) as f:
-    reader = csv.reader(f) #It is an iterator
+    reader = csv.reader(f) #iterator
     header_row = next(reader)
     print(header_row)
 
     for index, column_header in enumerate(header_row): #enumerate
         print(index, column_header)
+        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+0 STATION
+1 NAME
+2 DATE
+3 PRCP
+4 TAVG
+5 TMAX
+6 TMIN
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Extracting and Reading Data</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import csv
+
+filename = 'sitka_weather_07-2018_simple.csv' 
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    print(header_row)
+
+    for index, column_header in enumerate(header_row):
+        print(index, column_header)
+
+    highs = []
+    for row in reader:
+        high = int(row[5])
+        highs.append(high)
+
+    print(highs)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-['ID', 'name', 'category', 'main_category', 'currency', 'deadline', 'goal', 'launched',
- 'pledged', 'state', 'backers', 'country', 'usd pledged', 'usd_pledged_real', 'usd_goal_real']
+[62, 58, 70, 70, 67, 59, 58, 62, 66, 59, 56, 63, 65, 58, 56, 59, 64, 60, 
+60, 61, 65, 65, 63, 59, 64, 65, 68, 66, 64, 67, 65]
 </code></pre>
                     </div>
                 </section>
                 <section>
-                    <ul>
-                        <li>Successful and Failed</li>
-                    </ul>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+from matplotlib import pyplot as plt
+
+# Plot the high temperatures.
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(highs, c='red')
+
+# Format plot.
+ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+# fig.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt11.jpg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <p>The datetime Module</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+from datetime import datetime
+first_date = datetime.strptime('2018-7-1', '%Y-%m-%d') 
+print(type(first_date))
+print(first_date.strftime('%B %d %Y'))
+print(first_date)
+
+&lt;class 'datetime.datetime'&gt;
+July 01 2018
+2018-07-01 00:00:00
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+%A Weekday name, such as Monday
+%B Month name, such as January
+%m Month, as a number (01 to 12)
+%d Day of the month, as a number (01 to 31) 
+%Y Four-digit year, such as 2015
+%y Two-digit year, such as 15
+%H Hour, in 24-hour format (00 to 23)
+%I Hour, in 12-hour format (01 to 12)
+%p am or pm
+%M Minutes (00 to 59) %S Seconds (00 to 61)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
 import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
 
-filename = 'ks-projects-201801.csv' 
-with open(filename,encoding="utf-8") as f:
-    reader = csv.reader(f) #It is an iterator
-    header_row = next(reader)
-    state=[]
+filename = 'sitka_weather_07-2018_simple.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader) 
+    dates, highs= [], [] 
     for row in reader:
-        state.append(row[9])
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        dates.append(current_date)
+        high = int(row[5])
+        highs.append(high)
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(dates, highs, c='red')
+</code></pre>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Format plot.
+ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+<mark>fig.autofmt_xdate()</mark>
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+</code></pre>
+                        </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="plt9.jpg
+                        " style="height: 400pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+
+<mark>filename = 'sitka_weather_2018_simple.csv'</mark>
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    
+    <mark>dates, highs, lows= [], [], []</mark> 
+    for row in reader:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        dates.append(current_date)
+        high = int(row[5])
+        highs.append(high)
+        <mark>low = int(row[6])</mark>
+        <mark>lows.append(low)</mark>
+        </code></pre>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Plot data.
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(dates, highs, c='red', alpha=0.5)
+ax.plot(dates, lows, c='blue', alpha=0.5)
+ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+
+# Format plot.
+ax.set_title("Daily high temperatures - 2018", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+fig.autofmt_xdate()
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="plt12.jpg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+
+filename = 'data/death_valley_2018_simple.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    dates, highs, lows = [], [], []
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
-from itertools import groupby
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 
-state.sort()
-percentage={}
-for key, value in groupby(state):
-    percentage[key]=len(list(value))/len(state)
-per=[]; labels=[]
-for x, y in percentage.items():
-    if y > 0.01:
-        per.append(y)
-        labels.append(x)
-per.append(1-sum(per))
-labels.append("others")
+# continue   
+    for row in reader:
+        try:
+            current_date = datetime.strptime(row[2], "%Y-%m-%d")
+            high = int(row[4])
+            low = int(row[5])
+        except ValueError:
+            print(current_date, 'missing data')
+        else:
+            dates.append(current_date)
+            highs.append(high)
+            lows.append(low)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>  
+# Plot data.
+#--snip--
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="plt10.jpg" style="height: 400pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.3 Downloading Data (2)</h2>
+                </section>
+                <section>
+                    <p><b>.JSON</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import json
+
+filename = 'btc_close_2017.json'
+with open(filename) as f:
+    btc_data = json.load(f)  
+
+for btc_dict in btc_data:
+    date = btc_dict['date']
+    month = int(btc_dict['month'])
+    week = int(btc_dict['week'])
+    weekday = btc_dict['weekday']
+    close = int(float(btc_dict['close']))  
+    print("{} is month {} week {}, {}, the close price is {} RMB".format(
+        date, month, week, weekday, close))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-line-numbers data-trim contenteditable data-noescape>
+2017-01-01 is month 1 week 52, Sunday, the close price is 6928 RMB
+2017-01-02 is month 1 week 1, Monday, the close price is 7070 RMB
+2017-01-03 is month 1 week 1, Tuesday, the close price is 7175 RMB
+2017-01-04 is month 1 week 1, Wednesday, the close price is 7835 RMB
+2017-01-05 is month 1 week 1, Thursday, the close price is 6928 RMB
+...
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="line-numbers" data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import json
+
+filename = 'btc_close_2017.json'
+with open(filename) as f:
+    btc_data = json.load(f)  
+
+date=[]; close=[]; months=[]
+
+for btc_dict in btc_data:
+    date.append(btc_dict['date'])
+    months.append(int(btc_dict['month']))
+    close.append(int(float(btc_dict['close'])))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import matplotlib.pyplot as plt
 
-explode=[0]*len(labels)
-plt.pie(per, labels=labels,\
-explode=explode, autopct='%.0f%%',shadow=True)
-plt.title("State", loc='center')
-plt.savefig('state.jpg',dpi=300)
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.style.use('ggplot')
+plt.plot(close, linewidth=0.5)
+plt.scatter(date,close, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('收盘价',fontsize=10)
+plt.tight_layout()
+plt.savefig('收盘价折线图.jpg',dpi=300)
 </code></pre>
                     </div>
-                    <div class="fragment"><img data-src='state.jpg' style="height: 250pt"></div>
-                    <ul>
-                        <li class="fragment">Practice: Classify those projects by their category and draw a pie chart.</li>
-                    </ul>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="收盘价折线图.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import matplotlib.pyplot as plt
+import math
+
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.style.use('ggplot')
+close_log = [math.log10(xx) for xx in close]
+plt.plot(close_log, linewidth=0.5)
+plt.scatter(date,close_log, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('收盘价',fontsize=10)
+plt.tight_layout()
+plt.savefig('收盘价对数变换折线图.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="收盘价对数变换折线图.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <p class="fragment"><b>groupby()</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+
+for key, value_iter in groupby('aaabbbaaccd'):
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+a : ['a', 'a', 'a']
+b : ['b', 'b', 'b']
+a : ['a', 'a']
+c : ['c', 'c']
+d : ['d']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+
+data = ['a', 'bb', 'ccc', 'dd', 'eee', 'f']
+for key, value_iter in groupby(data, len):  
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+1 : ['a']
+2 : ['bb']
+3 : ['ccc']
+2 : ['dd']
+3 : ['eee']
+1 : ['f']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+data = ['a', 'bb', 'cc', 'ddd', 'eee', 'f']
+for key, value_iter in groupby(data, len):  
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+1 : ['a']
+2 : ['bb', 'cc']
+3 : ['ddd', 'eee']
+1 : ['f']
+</code></pre>
+                    </div>
+                    <p class="fragment"><b>zip()</b></p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)
+>>> zipped
+<zip object at 0x02B01B48> #iterator
+>>> list(zipped)
+[(1, 4), (2, 5), (3, 6)] 
+>>> list(zip(a,c))
+[(1, 4), (2, 5), (3, 6)]</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)
+>>> list(zip(*zipped)) 
+[(1, 2, 3), (4, 5, 6)]
+>>> zipped = zip(a,b)
+>>> x,y = zip(*zipped)
+>>> print(x)
+(1,2,3)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+import matplotlib.pyplot as plt
+
+def draw_line(x_data, y_data, title):
+    xy_map = []
+    y_list = []
+    <mark>for x, y in groupby(sorted(zip(x_data, y_data)), lambda w: w[0]):</mark>  
+        for first, second in y:
+            y_list.append(second)
+        xy_map.append([x, sum(y_list) / len(y_list)])  
+    x_unique, y_mean = zip(*xy_map) 
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.style.use('ggplot')
+    plt.plot(x_unique, y_mean, linewidth=0.5)
+    plt.scatter(x_unique, y_mean, s=5)
+    plt.title(title,fontsize=10)
+    plt.tight_layout()
+    plt.savefig(title+'.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+idx_month = date.index('2017-12-01') 
+line_chart_month = draw_line(months[:idx_month], close[:idx_month], '收盘价月日均值')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="收盘价月日均值.jpg" style="height: 400pt"></div>
                 </section>
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
                     <ul>
-                        <li>Wordcloud</li>
-                        <li>API</li>
+                        <li>Data Visualization</li>
                         <ul>
-                            <li>Reading: Python Crash Course, Chapter 17</li>
+                            <li>Reading: Python Crash Course, Chapter 15, 16</li>
                         </ul>
                     </ul>
                 </section>
             </section>
         </div>
     </div>
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.js"></script>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/search/search.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/zoom_old/zoom_old.js"></script>
+    <script src="plugin/chalkboard/plugin.js"></script>
+    <script src="plugin/customcontrols/plugin.js"></script>
     <script>
-    // More info about config & dependencies:
-    // - https://github.com/hakimel/reveal.js#configuration
-    // - https://github.com/hakimel/reveal.js#dependencies
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
     Reveal.initialize({
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 960,
-        height: 700,
-
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
-
-        // Bounds for smallest/largest possible scale to apply to content
-        minScale: 0.2,
-        maxScale: 1.5,
-
-        // Display controls in the bottom right corner
         controls: true,
-
-        // Display a presentation progress bar
         progress: true,
-
-        // Set default timing of 2 minutes per slide
-        defaultTiming: 120,
-
-        // Display the page number of the current slide
-        slideNumber: true,
-
-        // Push each slide change to the browser history
-        history: false,
-
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-
-        // Enable the slide overview mode
-        overview: true,
-
-        // Vertical centering of slides
         center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
 
-        // Enables touch navigation on devices with touch input
-        touch: true,
 
-        // Loop the presentation
-        loop: false,
 
-        // Change the presentation direction to be RTL
-        rtl: false,
-
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
-
-        // Turns fragments on and off globally
-        fragments: true,
-
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
-
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
-
-        // Global override for autolaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
-        autoPlayMedia: null,
-
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
-
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: Reveal.navigateNext,
-
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
-
-        // Hides the address bar on mobile devices
-        hideAddressBar: true,
-
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
-
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
-
-        // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
-
-        // Parallax background image
-        parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
-
-        // Parallax background size
-        parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
-
-        // Number of pixels to move the parallax background per slide
-        // - Calculated automatically unless specified
-        // - Set to 0 to disable movement along an axis
-        parallaxBackgroundHorizontal: null,
-        parallaxBackgroundVertical: null,
-
-        // The display mode that will be used to show slides
-        display: 'block',
-
-        dependencies: [
-            { src: 'plugin/markdown/marked.js' },
-            { src: 'plugin/markdown/markdown.js' },
-            { src: 'plugin/notes/notes.js', async: true },
-            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-            // Zoom in and out with Alt+click
-            { src: 'plugin/zoom-js/zoom.js', async: true },
-
-            // Speaker notes
-            { src: 'plugin/notes/notes.js', async: true },
-
-            // MathJax
-            { src: 'plugin/math/math.js', async: true },
-            { src: 'plugin/line-numbers/line-numbers.js' }
-        ]
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
     });
     </script>
 </body>

@@ -802,14 +802,18 @@ from itertools import groupby
 import matplotlib.pyplot as plt
 
 def draw_line(x_data, y_data, title):
-    xy_map = []
-    y_list = []
+    xy_map = [] 
     <mark>for x, y in groupby(sorted(zip(x_data, y_data)), lambda w: w[0]):</mark>  
+        y_list = []
         for first, second in y:
             y_list.append(second)
         xy_map.append([x, sum(y_list) / len(y_list)])  
     x_unique, y_mean = zip(*xy_map) 
-
+    </code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# continue
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.style.use('ggplot')
     plt.plot(x_unique, y_mean, linewidth=0.5)
